@@ -2,18 +2,22 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/hls.js@1.2.5/dist/hls.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <style>
 body {
   font-family: "Lato", sans-serif;
   background-color: #0e0e10;
-  color: #efeff1
-
+  margin: 0px
 }
 
 .sidebar {
+  margin-top: 50px;
   height: 100%;
-  width: 240px;
+  width: 50px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -24,51 +28,10 @@ body {
   padding-top: 60px;
 }
 
-.sidebar a {
-  padding: 8px 20px 8px 7px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #dedee3;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 7px;
-  font-size: 36px;
-  height: 36px;
-  width: 36px;
-  background: none;
-  border: none;
-  color: #efeff1;
-  fill: currentcolor;
-}
-
-.sidebar .pp {
-  border-radius: 50%;
-  height: 40px
-
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-  margin-Left: 250px;
-  margin-right: 340px;
-}
-
-.chat {
-  transition: margin-left .5s;
-  /* padding: 16px; */
-  /* margin-right: -250px; */
+.rightBar {
+  margin-top: 50px;
   height: 100%;
-  width: 340px;
+  width: 320px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -77,32 +40,110 @@ body {
   overflow-x: hidden;
   transition: 0.5s;
 }
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-  z-index: 2;
+.rightBar iframe{
+  height: 100%;
 }
 
-.topnav a {
+.sidebar a {
+  padding: 8px 8px 8px 7px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f7f7f8;
+  display: flex;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar img {
+  border-radius: 50%;
+  height: 40px;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 7px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+  margin-left : 50px;
+  margin-right : 320px;
+  height: 100%;
+  color: #f7f7f8;
+  font-size: 20px;
+
+}
+
+#main img {
+  border-radius: 50%;
+  height: 90px;
+}
+
+#main video {
+  width: 100%;
+}
+
+#textbox {
+  display: flex;
+  font-size: 25px;
+}
+#titlediv {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px;
+}
+#name h1{
+  display: flex;
+  align-items: top;
+  font-size: 25px;
+  margin: 0px;
+}
+
+#title {
+  display: flex;
+  align-items: bottom;
+}
+
+#navbar img {
+  height: 40px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #17171b;
+}
+
+li {
   float: left;
-  color: #f2f2f2;
+}
+
+li a {
+  display: block;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
 }
 
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
+li a:hover {
+  background-color: #111;
 }
 
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
+#all{
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
 }
-
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
@@ -111,88 +152,78 @@ body {
 </style>
 </head>
 <body>
+<div id="all">
 
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+
+  <div id="navbar">
+    <ul>
+      <li>
+        <img src="logo.png"
+      </li>
+      <li><a class="active" href="#home">Following</a></li>
+      <li><a href="#news">Browse</a></li>
+
+    </ul>
+  </div>
+
+  <div id="lereste">
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" id="closebtn" onclick="openNav()">×</a>
+      <a href="#">
+        <img src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/64fd61d0772621ef2fd6b9c3a4f6c33e~c5_100x100.jpeg?x-expires=1668358800&x-signature=c7AKy7JLKWekJ8Z38JKQ3%2F8GGAw%3D" alt="Avatar">
+        &nbsp;&nbsp;cocadmin
+      </a>
+    </div>
+
+    <div id="rightBbar" class="rightBar">
+      <iframe src="https://kiwiirc.hybridirc.com/?nick=Guest??&theme=dark#cocadmin" allow="microphone; camera; display-capture; fullscreen" style="border:0; width:100%; height:95%;"></iframe>
+    </div>
+
+    <div id="main">
+      <video id="video" style="max-height: 50%" class="embed-responsive-item video-js vjs-default-skin" controls muted="muted"></video>
+      <div id="textbox">
+        <div>
+          <img src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/64fd61d0772621ef2fd6b9c3a4f6c33e~c5_100x100.jpeg?x-expires=1668358800&x-signature=c7AKy7JLKWekJ8Z38JKQ3%2F8GGAw%3D" alt="Avatar">
+        </div>
+        <div id="titlediv">
+          <div id = "name">
+            <h1>cocadmin</h1>
+          </div>
+          <div id = "title">
+            <a>EN DIRECT LIVE DE PASTWITCH</a>
+          </div>
+        </div>
+      </div>
+
+      <p>description pas le temp donc Logoden biniou degemer mat an penn ar bed bugale, fresk . Hadañ bruched bern glebiañ neud da marv c’houmoul a, subbscribe. </p>
+    </div>
+  </div>
+
 </div>
-
-<div>
-  <div id="mySidebar" class="sidebar">
-
-    <button id="menuButton" class="closebtn" onclick="closeNav()">
-      <svg version="1.1" viewBox="0 0 20 20"><g><path d="M16 16V4h2v12h-2zM6 9l2.501-2.5-1.5-1.5-5 5 5 5 1.5-1.5-2.5-2.5h8V9H6z"></path></g></svg>
-    </button>
-    <a href="#">
-        <img class="pp" src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/64fd61d0772621ef2fd6b9c3a4f6c33e~c5_100x100.jpeg?x-expires=1668193200&x-signature=XCciFTxE%2B8%2BWPSgh8Q2s2EzpZb4%3D"/>
-        cocadmin   
-    </a>
-  </div>
-
-  <div id="main">
-    <!-- <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>   -->
-    <h2>Collapsed Sidebar</h2>
-    <p>Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.</p>
-    <video controls id="video" width="100%"></video>
-  </div>
-
-  <div class="chat">
-    <iframe src="https://kiwiirc.hybridirc.com/?nick=guest??&theme=Darkfluid#cocadmin" allow="microphone; camera; display-capture; fullscreen" style="border:0; width:100%; height:100%;"></iframe>
-  </div>
-
-<div/>
-
-
-
 <script>
 function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-  document.getElementById("menuButton").onclick = closeNav;
-  document.getElementById("menuButton").innerHTML = '<svg version="1.1" viewBox="0 0 20 20"><g><path d="M16 16V4h2v12h-2zM6 9l2.501-2.5-1.5-1.5-5 5 5 5 1.5-1.5-2.5-2.5h8V9H6z"></path></g></svg>';
-
-  console.log("open")
+  document.getElementById("mySidebar").style.width = "240px";
+  document.getElementById("main").style.marginLeft = "240px";
+  document.getElementById("closebtn").onclick= closeNav ;
 }
 
 function closeNav() {
   document.getElementById("mySidebar").style.width = "50px";
   document.getElementById("main").style.marginLeft= "50px";
-  document.getElementById("menuButton").onclick = openNav;
-
-  document.getElementById("menuButton").innerHTML = '<svg version="1.1"  viewBox="0 0 20 20"><g><path d="M4 16V4H2v12h2zM13 15l-1.5-1.5L14 11H6V9h8l-2.5-2.5L13 5l5 5-5 5z"></path></g></svg>';
-
-
-  console.log("close")
-
+  document.getElementById("closebtn").onclick= openNav ;
 }
 </script>
 <script>
-  var video = document.getElementById('video');
-  let config= {
-    "autoStartLoad": true,
-    "enableWorker": true,
-    "lowLatencyMode": true,
-    "backBufferLength": 90
-  };
-  if(Hls.isSupported(config)) {
+  if(Hls.isSupported()) {
+    var video = document.getElementById('video');
     var hls = new Hls();
     hls.loadSource('http://localhost:8080/hls/test.m3u8');
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,function() {
       video.play();
-  });
- }
- // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
- // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
- // This is using the built-in support of the plain video element, without using hls.js.
-  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = 'http://localhost:8080/hls/test.m3u8';
-    video.addEventListener('canplay',function() {
-      video.play();
     });
   }
 </script>
+
 </body>
 </html> 
